@@ -3,7 +3,10 @@
  */
 package superdetodosa;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.TreeSet;
+import javax.swing.ImageIcon;
 import static superdetodosa.Categoria.COMESTIBLE;
 import static superdetodosa.Categoria.LIMPIEZA;
 import static superdetodosa.Categoria.PERFUMERIA;
@@ -29,7 +32,13 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/img/logoSuper.png"));
+        Image image = icon.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -45,16 +54,21 @@ public class Menu extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 441, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 294, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Administración");
 
         jMenuItem1.setText("Productos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -95,6 +109,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
+        //Acá se asocia el javaInternalFrame 'BusquedaPorNombreView'
         escritorio.removeAll();
         escritorio.repaint();
         BusquedaPorNombreView bpn=new BusquedaPorNombreView();//instancia de ventana
@@ -102,6 +117,16 @@ public class Menu extends javax.swing.JFrame {
         escritorio.add(bpn);//abre la ventana
         escritorio.moveToFront(bpn);//trae al frente la ventana
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        GestionDeProductosView gdp=new GestionDeProductosView();//instancia de ventana
+        gdp.setVisible(true);//hace visible la ventana
+        escritorio.add(gdp);//abre la ventana
+        escritorio.moveToFront(gdp);//trae al frente la ventana
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments

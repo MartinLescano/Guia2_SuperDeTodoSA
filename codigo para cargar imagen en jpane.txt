@@ -1,0 +1,7 @@
+ImageIcon icon = new ImageIcon(getClass().getResource("/nombre_de_carpeta/nombre_de_imagen.png"));
+ Image image = icon.getImage();
+escritorio = new javax.swing.JDesktopPane(){
+    public void paintComponent(Graphics g){
+        g.drawImage(image,0,0,getWidth(),getHeight(),this);
+    }
+};
