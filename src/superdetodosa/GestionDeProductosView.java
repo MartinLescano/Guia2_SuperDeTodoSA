@@ -68,6 +68,11 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
 
         jbBuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\MARTIN\\Desktop\\Argentina Programa 4.0\\JAVA-Creando Una Aplicacion\\Guia2\\SuperDeTodoSA\\buscar.png")); // NOI18N
         jbBuscar.setPreferredSize(new java.awt.Dimension(289, 265));
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jbNuevo.setText("Nuevo");
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -194,6 +199,11 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
             jtStock.setText("");
     }//GEN-LAST:event_jbNuevoActionPerformed
 
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+       buscarBase();
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -219,4 +229,15 @@ private void cargarBase(Producto prod) {
     baseDatos.add(new Producto(prod.getCodigo(),prod.getDescripcion(),prod.getPrecio(),prod.getStock(),prod.getRubro()));
     
    }
+
+    private void buscarBase(){
+        for (Producto i : baseDatos) {
+            if(jtCodigo.getText().equalsIgnoreCase(String.valueOf(i.getCodigo()))){
+                jtDescripcion.setText(i.getDescripcion());
+                jtPrecio.setText(String.valueOf(i.getPrecio()));
+                jcbCategoria.setSelectedItem(i.getRubro());
+                jtStock.setText(String.valueOf(i.getStock()));
+            }   
+        }
+    }
 }
