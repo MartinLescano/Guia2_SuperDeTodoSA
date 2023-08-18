@@ -4,6 +4,7 @@
 
 package superdetodosa;
 
+import java.util.Iterator;
 import java.util.TreeSet;
 import javax.swing.JOptionPane;
 import static superdetodosa.Categoria.COMESTIBLE;
@@ -82,10 +83,25 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,6 +193,7 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Elegir una categoría.");
                 return;
             }
+            
             int codigo = Integer.parseInt(jtCodigo.getText());
             String descripcion = jtDescripcion.getText();
             double precio = Double.parseDouble(jtPrecio.getText());
@@ -185,6 +202,12 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
             
             Producto prod = new Producto(codigo, descripcion, precio, stock, rubro);
             
+            for (Producto j : baseDatos) {
+            if (jtCodigo.getText().equalsIgnoreCase(String.valueOf(j.getCodigo()))) {
+                JOptionPane.showMessageDialog(this, "Código ya existe. Ir a 'GUARDAR'");
+                return;
+            }
+        }
             cargarBase(prod);
 
             }catch(NumberFormatException numb){
@@ -203,6 +226,67 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
        buscarBase();
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (jtCodigo.getText().isEmpty() || jtDescripcion.getText().isEmpty() || jtPrecio.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No debe haber campos vacíos.");
+                return;
+            } else if (jcbCategoria.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Elegir una categoría.");
+                return;
+            }
+
+            for (Producto k : baseDatos) {
+                if (jtCodigo.getText().equalsIgnoreCase(String.valueOf(k.getCodigo()))) {
+                    k.setCodigo(Integer.parseInt(jtCodigo.getText()));
+                    k.setDescripcion(jtDescripcion.getText());
+                    k.setPrecio(Double.parseDouble(jtPrecio.getText()));
+                    k.setRubro((Categoria) jcbCategoria.getSelectedItem());
+                    k.setStock(Integer.parseInt(jtStock.getText()));
+                }else if(!jtCodigo.getText().equalsIgnoreCase(String.valueOf(k.getCodigo()))){
+                    //Si se quiere oprimir 'GUARDAR' a un producto que no está en el TreeSet se mostrará el sig. msj.
+                    JOptionPane.showMessageDialog(this, "Producto nuevo. Ir a 'NUEVO'");
+                    return;
+                }
+            }
+
+        } catch (NumberFormatException numb) {
+            JOptionPane.showMessageDialog(this, "Código y/o Precio deben ser números.");
+            return;
+        }
+
+        jtCodigo.setText("");
+        jtDescripcion.setText("");
+        jtPrecio.setText("");
+        jcbCategoria.setSelectedIndex(0);
+        jtStock.setText("");
+        jtCodigo.setEditable(true);
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // TODO add your handling code here:
+        
+                Iterator<Producto> it=baseDatos.iterator();
+                    while(it.hasNext()){
+                    if(it.next().getCodigo()==Integer.parseInt(jtCodigo.getText())){
+                        it.remove();
+                    }
+                    }
+         
+        jtCodigo.setText("");
+        jtDescripcion.setText("");
+        jtPrecio.setText("");
+        jcbCategoria.setSelectedIndex(0);
+        jtStock.setText("");
+        jtCodigo.setEditable(true);
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -225,19 +309,29 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
 
-private void cargarBase(Producto prod) {
-    baseDatos.add(new Producto(prod.getCodigo(),prod.getDescripcion(),prod.getPrecio(),prod.getStock(),prod.getRubro()));
-    
-   }
+    private void cargarBase(Producto prod) {
+        baseDatos.add(new Producto(prod.getCodigo(), prod.getDescripcion(), prod.getPrecio(), prod.getStock(), prod.getRubro()));
 
-    private void buscarBase(){
+    }
+
+    private void buscarBase() {
         for (Producto i : baseDatos) {
-            if(jtCodigo.getText().equalsIgnoreCase(String.valueOf(i.getCodigo()))){
+            if (jtCodigo.getText().equalsIgnoreCase(String.valueOf(i.getCodigo()))) {
+                jtCodigo.setEditable(false);//Cuando hay coincidencia bloquea el campo 'código'
                 jtDescripcion.setText(i.getDescripcion());
                 jtPrecio.setText(String.valueOf(i.getPrecio()));
                 jcbCategoria.setSelectedItem(i.getRubro());
                 jtStock.setText(String.valueOf(i.getStock()));
-            }   
+            }
         }
     }
+
+    private void duplicados() {
+        for (Producto j : baseDatos) {
+            if (jtCodigo.getText().equalsIgnoreCase(String.valueOf(j.getCodigo()))) {
+                JOptionPane.showMessageDialog(this, "Código de producto ya existe.");
+            }
+        }
+    }
+    
 }
