@@ -5,6 +5,7 @@
 package superdetodosa;
 
 import java.util.TreeSet;
+import javax.swing.JOptionPane;
 import static superdetodosa.Categoria.COMESTIBLE;
 import static superdetodosa.Categoria.LIMPIEZA;
 import static superdetodosa.Categoria.PERFUMERIA;
@@ -163,16 +164,34 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         // TODO add your handling code here:
+            try{  
+            if(jtCodigo.getText().isEmpty()||jtDescripcion.getText().isEmpty()||jtPrecio.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "No debe haber campos vacíos.");
+                return;
+            }else if(jcbCategoria.getSelectedIndex()==0){
+                JOptionPane.showMessageDialog(this, "Elegir una categoría.");
+                return;
+            }
             int codigo = Integer.parseInt(jtCodigo.getText());
             String descripcion = jtDescripcion.getText();
             double precio = Double.parseDouble(jtPrecio.getText());
             int stock = Integer.parseInt(jtStock.getText());
             Categoria rubro = (Categoria) jcbCategoria.getSelectedItem();
             
-            
             Producto prod = new Producto(codigo, descripcion, precio, stock, rubro);
             
             cargarBase(prod);
+
+            }catch(NumberFormatException numb){
+                JOptionPane.showMessageDialog(this, "Código y/o Precio deben ser números.");
+                return;
+            }
+            
+            jtCodigo.setText("");
+            jtDescripcion.setText("");
+            jtPrecio.setText("");
+            jcbCategoria.setSelectedIndex(0);
+            jtStock.setText("");
     }//GEN-LAST:event_jbNuevoActionPerformed
 
 
