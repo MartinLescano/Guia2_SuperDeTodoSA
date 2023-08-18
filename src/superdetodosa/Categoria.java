@@ -8,6 +8,7 @@ package superdetodosa;
  * @author Your Name <your.name at your.org>
  */
 public enum Categoria {
+    SELECCIONE,
     COMESTIBLE,
     LIMPIEZA,
     PERFUMERIA,

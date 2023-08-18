@@ -4,12 +4,19 @@
 
 package superdetodosa;
 
+import java.util.TreeSet;
+import static superdetodosa.Categoria.COMESTIBLE;
+import static superdetodosa.Categoria.LIMPIEZA;
+import static superdetodosa.Categoria.PERFUMERIA;
+import static superdetodosa.Categoria.SELECCIONE;
+
 /**
  *
  * @author Your Name <your.name at your.org>
  */
 public class GestionDeProductosView extends javax.swing.JInternalFrame {
-
+    public static TreeSet<Producto> baseDatos = new TreeSet<Producto>();
+    
     /** Creates new form GestionDeProductosView */
     public GestionDeProductosView() {
         initComponents();
@@ -56,12 +63,17 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Stock:");
 
-        jcbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Categoria[] { SELECCIONE,COMESTIBLE, LIMPIEZA, PERFUMERIA}));
 
         jbBuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\MARTIN\\Desktop\\Argentina Programa 4.0\\JAVA-Creando Una Aplicacion\\Guia2\\SuperDeTodoSA\\buscar.png")); // NOI18N
         jbBuscar.setPreferredSize(new java.awt.Dimension(289, 265));
 
         jbNuevo.setText("Nuevo");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setText("Guardar");
 
@@ -116,10 +128,11 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -148,6 +161,20 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        // TODO add your handling code here:
+            int codigo = Integer.parseInt(jtCodigo.getText());
+            String descripcion = jtDescripcion.getText();
+            double precio = Double.parseDouble(jtPrecio.getText());
+            int stock = Integer.parseInt(jtStock.getText());
+            Categoria rubro = (Categoria) jcbCategoria.getSelectedItem();
+            
+            
+            Producto prod = new Producto(codigo, descripcion, precio, stock, rubro);
+            
+            cargarBase(prod);
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -161,11 +188,16 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbCategoria;
+    private javax.swing.JComboBox<Categoria> jcbCategoria;
     private javax.swing.JTextField jtCodigo;
     private javax.swing.JTextField jtDescripcion;
     private javax.swing.JTextField jtPrecio;
     private javax.swing.JTextField jtStock;
     // End of variables declaration//GEN-END:variables
 
+
+private void cargarBase(Producto prod) {
+    baseDatos.add(new Producto(prod.getCodigo(),prod.getDescripcion(),prod.getPrecio(),prod.getStock(),prod.getRubro()));
+    
+   }
 }
