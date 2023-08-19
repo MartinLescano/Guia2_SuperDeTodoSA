@@ -47,6 +47,7 @@ public class BusquedaPorRubroView extends javax.swing.JInternalFrame {
         jLabel2.setText("Elegir Rubro:");
 
         jcRubro.setModel(new javax.swing.DefaultComboBoxModel<>(new Categoria[] { SELECCIONE, COMESTIBLE, LIMPIEZA, PERFUMERIA }));
+        jcRubro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jcRubro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcRubroItemStateChanged(evt);
