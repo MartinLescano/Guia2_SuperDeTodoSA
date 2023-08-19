@@ -92,6 +92,11 @@ public class Menu extends javax.swing.JFrame {
         jMenu2.add(jmPorNombre);
 
         jmPorPrecio.setText("Por Precio");
+        jmPorPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPorPrecioActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmPorPrecio);
 
         jMenuBar1.add(jMenu2);
@@ -142,6 +147,16 @@ public class Menu extends javax.swing.JFrame {
         escritorio.add(bpr);//abre la ventana
         escritorio.moveToFront(bpr);//trae al frente la ventana
     }//GEN-LAST:event_jmPorRubroActionPerformed
+
+    private void jmPorPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPorPrecioActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        BusquedaPorPrecioView bpp=new BusquedaPorPrecioView();//instancia de ventana
+        bpp.setVisible(true);//hace visible la ventana
+        escritorio.add(bpp);//abre la ventana
+        escritorio.moveToFront(bpp);//trae al frente la ventana
+    }//GEN-LAST:event_jmPorPrecioActionPerformed
 
     /**
      * @param args the command line arguments

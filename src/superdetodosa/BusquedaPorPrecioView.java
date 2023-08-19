@@ -3,25 +3,22 @@
  */
 package superdetodosa;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import static superdetodosa.Categoria.COMESTIBLE;
-import static superdetodosa.Categoria.LIMPIEZA;
-import static superdetodosa.Categoria.PERFUMERIA;
-import static superdetodosa.Categoria.SELECCIONE;
 
 /**
  *
  * @author Your Name <your.name at your.org>
  */
-public class BusquedaPorRubroView extends javax.swing.JInternalFrame {
+public class BusquedaPorPrecioView extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo= new DefaultTableModel();
     public boolean isCellEditable(int fila,int columna){
         return false;
     };
     /**
-     * Creates new form BusquedaPorRubroView
+     * Creates new form BusquedaPorPrecioView
      */
-    public BusquedaPorRubroView() {
+    public BusquedaPorPrecioView() {
         initComponents();
         armarCabecera();
     }
@@ -35,21 +32,24 @@ public class BusquedaPorRubroView extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jcRubro = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jtMenorPrecio = new javax.swing.JTextField();
+        jtMayorPrecio = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTabla = new javax.swing.JTable();
 
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Busqueda Por Rubro");
+        jLabel1.setText("Busqueda Por Precio");
 
-        jLabel2.setText("Elegir Rubro:");
+        jLabel2.setText("Entre:");
 
-        jcRubro.setModel(new javax.swing.DefaultComboBoxModel<>(new Categoria[] { SELECCIONE, COMESTIBLE, LIMPIEZA, PERFUMERIA }));
-        jcRubro.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jcRubroItemStateChanged(evt);
+        jLabel3.setText("y");
+
+        jtMayorPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtMayorPrecioKeyReleased(evt);
             }
         });
 
@@ -73,13 +73,17 @@ public class BusquedaPorRubroView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
+                        .addGap(104, 104, 104)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                        .addGap(48, 48, 48)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcRubro, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtMenorPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtMayorPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -93,40 +97,42 @@ public class BusquedaPorRubroView extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jcRubro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addComponent(jtMenorPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtMayorPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcRubroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcRubroItemStateChanged
+    private void jtMayorPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtMayorPrecioKeyReleased
         // TODO add your handling code here:
-                borrarFilas();
-        for(Producto prod:Menu.baseDatos){
-            if(prod.getRubro().equals(jcRubro.getSelectedItem())){
-                modelo.addRow(new Object[]{
-                    prod.getCodigo(),
-                    prod.getDescripcion(),
-                    prod.getPrecio(),
-                    prod.getStock()
-                });
-            }
-        }
-    }//GEN-LAST:event_jcRubroItemStateChanged
+        try{
+           if (jtMenorPrecio.getText().isEmpty()||jtMayorPrecio.getText().isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Caompletar campos.");
+               return;
+           }
+           rangoPrecios();
+       }catch(NumberFormatException numb){
+           JOptionPane.showMessageDialog(this, "Los campos deben contener números.");
+       }
+    }//GEN-LAST:event_jtMayorPrecioKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<Categoria> jcRubro;
+    private javax.swing.JTextField jtMayorPrecio;
+    private javax.swing.JTextField jtMenorPrecio;
     private javax.swing.JTable jtTabla;
     // End of variables declaration//GEN-END:variables
 
-        private void armarCabecera(){
+private void armarCabecera(){
         modelo.addColumn("Código");
         modelo.addColumn("Descripción");
         modelo.addColumn("Precio");
@@ -140,5 +146,17 @@ public class BusquedaPorRubroView extends javax.swing.JInternalFrame {
             modelo.removeRow(f);
         }
     }
-
+private void rangoPrecios(){
+    borrarFilas();
+        for(Producto prod:Menu.baseDatos){
+            if(prod.getPrecio()>=Double.parseDouble(jtMenorPrecio.getText())&&prod.getPrecio()<=Double.parseDouble(jtMayorPrecio.getText())){
+                modelo.addRow(new Object[]{
+                    prod.getCodigo(),
+                    prod.getDescripcion(),
+                    prod.getPrecio(),
+                    prod.getStock()
+                });
+            }
+        }
+}
 }
