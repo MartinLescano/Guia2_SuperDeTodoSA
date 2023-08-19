@@ -205,15 +205,15 @@ public class Menu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarProductos(){
-        baseDatos.add(new Producto(10,"Azucar x 1kg",300.2,150,COMESTIBLE));
-        baseDatos.add(new Producto(12,"Yerba Taragui 1kg",850.3,300,COMESTIBLE));
-        baseDatos.add(new Producto(14,"Aceite Canuelas 900cc",450.1,250,COMESTIBLE));
-        baseDatos.add(new Producto(15,"Lavandina Ayudín 1L",373.0,400,LIMPIEZA));
-        baseDatos.add(new Producto(16,"Detergente Cif 430ml",390.3,480,LIMPIEZA));
-        baseDatos.add(new Producto(15,"Jabon Liquido Ala 3L",849.0,200,LIMPIEZA));
-        baseDatos.add(new Producto(15,"Jabon Dove 35gr",399.0,500,PERFUMERIA));
-        baseDatos.add(new Producto(15,"Shampoo H&S 400ml",750.0,600,PERFUMERIA));
-        baseDatos.add(new Producto(15,"Acondicionador H&S 400ml",750.0,400,PERFUMERIA));
+        baseDatos.add(new Producto(1001,"Azucar x 1kg",300.2,150,COMESTIBLE));
+        baseDatos.add(new Producto(1002,"Yerba Taragui 1kg",850.3,300,COMESTIBLE));
+        baseDatos.add(new Producto(1003,"Aceite Canuelas 900cc",450.1,250,COMESTIBLE));
+        baseDatos.add(new Producto(1004,"Lavandina Ayudín 1L",373.0,400,LIMPIEZA));
+        baseDatos.add(new Producto(1005,"Detergente Cif 430ml",390.3,480,LIMPIEZA));
+        baseDatos.add(new Producto(1006,"Jabon Liquido Ala 3L",849.0,200,LIMPIEZA));
+        baseDatos.add(new Producto(1007,"Jabon Dove 35gr",399.0,500,PERFUMERIA));
+        baseDatos.add(new Producto(1008,"Shampoo H&S 400ml",750.0,600,PERFUMERIA));
+        baseDatos.add(new Producto(1009,"Acondicionador H&S 400ml",750.0,400,PERFUMERIA));
         
     }
 
