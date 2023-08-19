@@ -16,7 +16,7 @@ import static superdetodosa.Categoria.PERFUMERIA;
  * @author Your Name <your.name at your.org>
  */
 public class Menu extends javax.swing.JFrame {
-    public static TreeSet<Producto> listaProductos=new TreeSet<>();
+    public static TreeSet<Producto> baseDatos=new TreeSet<>();
     /**
      * Creates new form Menu
      */
@@ -41,11 +41,11 @@ public class Menu extends javax.swing.JFrame {
         };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmProductos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmPorRubro = new javax.swing.JMenuItem();
+        jmPorNombre = new javax.swing.JMenuItem();
+        jmPorPrecio = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(700, 600));
@@ -63,31 +63,36 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu1.setText("Administración");
 
-        jMenuItem1.setText("Productos");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmProductos.setText("Productos");
+        jmProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmProductosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jmProductos);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Consultas");
 
-        jMenuItem2.setText("Por Rubro");
-        jMenu2.add(jMenuItem2);
-
-        jMenuItem3.setText("Por Nombre");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmPorRubro.setText("Por Rubro");
+        jmPorRubro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmPorRubroActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(jmPorRubro);
 
-        jMenuItem4.setText("Por Precio");
-        jMenu2.add(jMenuItem4);
+        jmPorNombre.setText("Por Nombre");
+        jmPorNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPorNombreActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmPorNombre);
+
+        jmPorPrecio.setText("Por Precio");
+        jMenu2.add(jmPorPrecio);
 
         jMenuBar1.add(jMenu2);
 
@@ -107,7 +112,7 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmPorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPorNombreActionPerformed
         // TODO add your handling code here:
         //Acá se asocia el javaInternalFrame 'BusquedaPorNombreView'
         escritorio.removeAll();
@@ -116,9 +121,9 @@ public class Menu extends javax.swing.JFrame {
         bpn.setVisible(true);//hace visible la ventana
         escritorio.add(bpn);//abre la ventana
         escritorio.moveToFront(bpn);//trae al frente la ventana
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jmPorNombreActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmProductosActionPerformed
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
@@ -126,7 +131,17 @@ public class Menu extends javax.swing.JFrame {
         gdp.setVisible(true);//hace visible la ventana
         escritorio.add(gdp);//abre la ventana
         escritorio.moveToFront(gdp);//trae al frente la ventana
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmProductosActionPerformed
+
+    private void jmPorRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPorRubroActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        BusquedaPorRubroView bpr=new BusquedaPorRubroView();//instancia de ventana
+        bpr.setVisible(true);//hace visible la ventana
+        escritorio.add(bpr);//abre la ventana
+        escritorio.moveToFront(bpr);//trae al frente la ventana
+    }//GEN-LAST:event_jmPorRubroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,22 +183,22 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jmPorNombre;
+    private javax.swing.JMenuItem jmPorPrecio;
+    private javax.swing.JMenuItem jmPorRubro;
+    private javax.swing.JMenuItem jmProductos;
     // End of variables declaration//GEN-END:variables
 
     private void cargarProductos(){
-        listaProductos.add(new Producto(10,"Azucar x 1kg",300.2,150,COMESTIBLE));
-        listaProductos.add(new Producto(12,"Yerba Taragui 1kg",850.3,300,COMESTIBLE));
-        listaProductos.add(new Producto(14,"Aceite Canuelas 900cc",450.1,250,COMESTIBLE));
-        listaProductos.add(new Producto(15,"Lavandina Ayudín 1L",373.0,400,LIMPIEZA));
-        listaProductos.add(new Producto(16,"Detergente Cif 430ml",390.3,480,LIMPIEZA));
-        listaProductos.add(new Producto(15,"Jabon Liquido Ala 3L",849.0,200,LIMPIEZA));
-        listaProductos.add(new Producto(15,"Jabon Dove 35gr",399.0,500,PERFUMERIA));
-        listaProductos.add(new Producto(15,"Shampoo H&S 400ml",750.0,600,PERFUMERIA));
-        listaProductos.add(new Producto(15,"Acondicionador H&S 400ml",750.0,400,PERFUMERIA));
+        baseDatos.add(new Producto(10,"Azucar x 1kg",300.2,150,COMESTIBLE));
+        baseDatos.add(new Producto(12,"Yerba Taragui 1kg",850.3,300,COMESTIBLE));
+        baseDatos.add(new Producto(14,"Aceite Canuelas 900cc",450.1,250,COMESTIBLE));
+        baseDatos.add(new Producto(15,"Lavandina Ayudín 1L",373.0,400,LIMPIEZA));
+        baseDatos.add(new Producto(16,"Detergente Cif 430ml",390.3,480,LIMPIEZA));
+        baseDatos.add(new Producto(15,"Jabon Liquido Ala 3L",849.0,200,LIMPIEZA));
+        baseDatos.add(new Producto(15,"Jabon Dove 35gr",399.0,500,PERFUMERIA));
+        baseDatos.add(new Producto(15,"Shampoo H&S 400ml",750.0,600,PERFUMERIA));
+        baseDatos.add(new Producto(15,"Acondicionador H&S 400ml",750.0,400,PERFUMERIA));
         
     }
 

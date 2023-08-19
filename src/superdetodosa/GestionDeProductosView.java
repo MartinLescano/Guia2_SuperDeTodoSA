@@ -17,7 +17,7 @@ import static superdetodosa.Categoria.SELECCIONE;
  * @author Your Name <your.name at your.org>
  */
 public class GestionDeProductosView extends javax.swing.JInternalFrame {
-    public static TreeSet<Producto> baseDatos = new TreeSet<Producto>();
+//    public static TreeSet<Producto> baseDatos = new TreeSet<Producto>();
     
     /** Creates new form GestionDeProductosView */
     public GestionDeProductosView() {
@@ -202,7 +202,7 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
             
             Producto prod = new Producto(codigo, descripcion, precio, stock, rubro);
             
-            for (Producto j : baseDatos) {
+            for (Producto j : Menu.baseDatos) {
             if (jtCodigo.getText().equalsIgnoreCase(String.valueOf(j.getCodigo()))) {
                 JOptionPane.showMessageDialog(this, "Código ya existe. Ir a 'GUARDAR'");
                 return;
@@ -238,18 +238,18 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
                 return;
             }
 
-            for (Producto k : baseDatos) {
+            for (Producto k : Menu.baseDatos) {
                 if (jtCodigo.getText().equalsIgnoreCase(String.valueOf(k.getCodigo()))) {
                     k.setCodigo(Integer.parseInt(jtCodigo.getText()));
                     k.setDescripcion(jtDescripcion.getText());
                     k.setPrecio(Double.parseDouble(jtPrecio.getText()));
                     k.setRubro((Categoria) jcbCategoria.getSelectedItem());
                     k.setStock(Integer.parseInt(jtStock.getText()));
-                }else if(!jtCodigo.getText().equalsIgnoreCase(String.valueOf(k.getCodigo()))){
-                    //Si se quiere oprimir 'GUARDAR' a un producto que no está en el TreeSet se mostrará el sig. msj.
+                }/*else if(!jtCodigo.getText().equalsIgnoreCase(String.valueOf(k.getCodigo()))){
+                    Si se quiere oprimir 'GUARDAR' a un producto que no está en el TreeSet se mostrará el sig. msj.
                     JOptionPane.showMessageDialog(this, "Producto nuevo. Ir a 'NUEVO'");
                     return;
-                }
+                }*/
             }
 
         } catch (NumberFormatException numb) {
@@ -268,7 +268,7 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
         
-                Iterator<Producto> it=baseDatos.iterator();
+                Iterator<Producto> it=Menu.baseDatos.iterator();
                     while(it.hasNext()){
                     if(it.next().getCodigo()==Integer.parseInt(jtCodigo.getText())){
                         it.remove();
@@ -310,12 +310,12 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
 
 
     private void cargarBase(Producto prod) {
-        baseDatos.add(new Producto(prod.getCodigo(), prod.getDescripcion(), prod.getPrecio(), prod.getStock(), prod.getRubro()));
+        Menu.baseDatos.add(new Producto(prod.getCodigo(), prod.getDescripcion(), prod.getPrecio(), prod.getStock(), prod.getRubro()));
 
     }
 
     private void buscarBase() {
-        for (Producto i : baseDatos) {
+        for (Producto i : Menu.baseDatos) {
             if (jtCodigo.getText().equalsIgnoreCase(String.valueOf(i.getCodigo()))) {
                 jtCodigo.setEditable(false);//Cuando hay coincidencia bloquea el campo 'código'
                 jtDescripcion.setText(i.getDescripcion());
@@ -327,7 +327,7 @@ public class GestionDeProductosView extends javax.swing.JInternalFrame {
     }
 
     private void duplicados() {
-        for (Producto j : baseDatos) {
+        for (Producto j : Menu.baseDatos) {
             if (jtCodigo.getText().equalsIgnoreCase(String.valueOf(j.getCodigo()))) {
                 JOptionPane.showMessageDialog(this, "Código de producto ya existe.");
             }
